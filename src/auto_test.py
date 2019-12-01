@@ -1,14 +1,14 @@
-# coding=utf-8
+﻿# coding=utf-8
 # reference to https://github.com/hai4john/edsr_4k/blob/master/datasets/auto_test.py
 # 测试集自动化处理脚本，注意该脚本默认在tools目录下运行。对应工作路径要注意
 
 import os, subprocess, time
 
-path_x4_video = '/home/dataset/sr/SDR_540p'
-path_x4_png = '/home/dataset/sr/SDR_540p/testset-CLW'
-path_x4_sr_png = '/home/dengzeshuai/vsr-commit/RCAN-CLW'
-path_x4_sr_video = '/home/dengzeshuai/vsr-commit/RCAN-CLW/SR_4K'
-pretrained_model = '/home/dengzeshuai/pretrained_models/RCAN_BIX4_G10R20P48/model/model_best.pt'
+path_x4_video = '../datasets/test_video'
+path_x4_png = '../datasets/test_image'
+path_x4_sr_png = ''../experiment/RDN_D16C8G64_BIx4''
+path_x4_sr_video = '../experiment/RDN_D16C8G64_BIx4/SR_4K'
+pretrained_model = '../model/model.pt'# model.pt 需要自己补充
 
 
 def del_file(path):
@@ -49,7 +49,7 @@ for video in os.listdir(path_x4_video):
     # 3. 编码超分后png文件为视频文件
     # cmd_encoder = 'ffmpeg -r 24000/1001 -i ' + path_x4_sr_png + '/target%4d_x4_SR.png  -vcodec libx265 -pix_fmt yuv422p -crf 10 ' + path_x4_sr_video + '/' + video
     #### path_x4_sr_png + "/.../target%4d.png" 中的路径需要修改
-    cmd_encoder = '/home/dengzeshuai/bin/ffmpeg -r 24000/1001 -i ' + path_x4_sr_png + '/results-Demo/target%4d_x4_SR.png  -vcodec libx265 -pix_fmt yuv422p -crf 10 ' + path_x4_sr_video + '/' + video 
+    cmd_encoder = 'ffmpeg -r 24000/1001 -i ' + path_x4_sr_png + '/results-Demo/target%4d_x4_SR.png  -vcodec libx265 -pix_fmt yuv422p -crf 10 ' + path_x4_sr_video + '/' + video 
     print(cmd_encoder)
     process_encoder = subprocess.Popen(cmd_encoder, shell=True)
     process_encoder.wait()
